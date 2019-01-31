@@ -31,6 +31,8 @@ headingAngle = 0.0;                            %robot Heading
 XHistory = zeros(1000);
 YHistory = zeros(1000);
 
+tapeHeading = 0.0;
+
 
 lastR1 = 0;
 lastR2 = 0;
@@ -83,6 +85,7 @@ while readButton(ev3, 'center') == 0
             leftMotor.Speed = 20 + (abs(xn)); % speed up left wheel
             rightMotor.Speed = 20 - (abs(xn));
             count = 0; % set to zero whenever black tape is visible
+            tapeHeading = headingAngle;
         elseif error < 0 %(on white -- turn left) 
             leftMotor.Speed = 20 - (abs(xn)); % slow down left wheel
             rightMotor.Speed = 20 + (abs(xn));
@@ -141,6 +144,7 @@ while readButton(ev3, 'center') == 0
             enOld = en;
         end
     elseif state == 3
+        error = tapeHeading - headingAngle;
         
     end
     
